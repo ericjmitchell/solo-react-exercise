@@ -2,6 +2,7 @@ import React from "react"
 import { DataGrid } from '@material-ui/data-grid'
 import { updatePerson } from '../store/people/personSlice'
 import { connect } from "react-redux"
+import ListHeader from './ListHeader'
 
 class List extends React.Component {
   constructor(props) {
@@ -22,21 +23,21 @@ class List extends React.Component {
   render() {
     return (
       <div style={{ height: 400, width: '100%' }}>
-        <h1>List / {this.props.congress}</h1>
-          <DataGrid rows={this.props.people} columns={this.state.columns} pageSize={5}
-            onRowSelected={(newSelection) => {
-              this.setSelection(newSelection)
-            }} />
+        <ListHeader congress={this.props.congress} />
+        <DataGrid rows={this.props.people} columns={this.state.columns} pageSize={5}
+          onRowSelected={(newSelection) => {
+            this.setSelection(newSelection)
+          }} />
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  return { 
+  return {
     people: state.people,
     congress: state.congress
-   }
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

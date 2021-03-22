@@ -1,5 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import MyListItemText from './MyListItemText'
 
 class Info extends React.Component {
   constructor(props) {
@@ -11,7 +14,7 @@ class Info extends React.Component {
     if (this.props.person && this.props.person.name) {
       return this.props.person.name.split(' ')[0]
     } else {
-      return ""
+      return "Firstname"
     }
   }
 
@@ -19,43 +22,55 @@ class Info extends React.Component {
     if (this.props.person && this.props.person.name) {
       return this.props.person.name.split(' ')[1]
     } else {
-      return ""
+      return "Lastname"
     }
   }
 
   district() {
-    if (this.props.person) {
+    if (this.props.person && this.props.person.district) {
       return this.props.person.district
     } else {
-      return ""
+      return "District"
     }
   }
 
   phone() {
-    if (this.props.person) {
+    if (this.props.person && this.props.person.phone) {
       return this.props.person.phone
     } else {
-      return ""
+      return "Phone"
     }
   }
 
   office() {
-    if (this.props.person) {
+    if (this.props.person && this.props.person.office) {
       return this.props.person.office
     } else {
-      return ""
+      return "Office"
     }
   }
 
   render() {
     return (
-      <div>
-        <h1>Info</h1>
-        <h2>{this.firstName()}</h2>
-        <h2>{this.lastName()}</h2>
-        <h2>{this.district()}</h2>
-        <h2>{this.phone()}</h2>
-        <h2>{this.office()}</h2>
+      <div style={{ height: 400, width: '100%' }}>
+        <h1 style={{ fontWeight: 500 }}>Info</h1>
+        <List>
+          <ListItem style={{ padding: 0 }}>
+            <MyListItemText primary={this.firstName()} />
+          </ListItem>
+          <ListItem style={{ padding: 0 }}>
+            <MyListItemText primary={this.lastName()} />
+          </ListItem>
+          <ListItem style={{ padding: 0 }}>
+            <MyListItemText primary={this.district()} />
+          </ListItem>
+          <ListItem style={{ padding: 0 }}>
+            <MyListItemText primary={this.phone()} />
+          </ListItem>
+          <ListItem style={{ padding: 0 }}>
+            <MyListItemText primary={this.office()} />
+          </ListItem>
+        </List>
       </div>
     )
   }

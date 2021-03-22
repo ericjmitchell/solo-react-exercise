@@ -64,12 +64,11 @@ class Selection extends React.Component {
       <Grid
         container
         direction="row"
-        justify="center"
         alignItems="center"
         spacing={2}
       >
 
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Dropdown
             options={this.state.congressOptions}
             onChange={this.congressChange.bind(this)}
@@ -83,30 +82,32 @@ class Selection extends React.Component {
             placeholder="Select a state"
           />
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={2}>
           <Button variant="contained" color="primary" onClick={() => this.submit()}>
             Submit
         </Button>
         </Grid>
-        <Collapse in={this.state.open}>
-          <Alert
-            severity="warning"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  this.setOpen(false)
-                }}
-              >
-                <CloseIcon fontSize="inherit" />
-              </IconButton>
-            }
-          >
-            Must select congress house and state!
+        <Grid item xs={8}>
+          <Collapse in={this.state.open}>
+            <Alert
+              severity="warning"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    this.setOpen(false)
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+            >
+              Must select congress house and state!
         </Alert>
-        </Collapse>
+          </Collapse>
+        </Grid>
       </Grid>
     )
   }
