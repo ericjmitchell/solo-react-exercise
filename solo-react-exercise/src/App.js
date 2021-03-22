@@ -10,7 +10,6 @@ function App() {
       <header >
         <h1>Find Your Representatives!</h1>
       </header>
-      <body>
         <Grid
           container
           spacing={2}
@@ -33,7 +32,6 @@ function App() {
             </Grid>
           </Grid>
         </Grid>
-      </body>
     </div>
   )
 }

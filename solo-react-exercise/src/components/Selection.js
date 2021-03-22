@@ -6,24 +6,36 @@ import Grid from '@material-ui/core/Grid'
 import { updatePeople } from '../store/people/peopleSlice'
 import { getList } from '../services/people'
 import { connect } from "react-redux"
+import Alert from '@material-ui/lab/Alert'
+import IconButton from '@material-ui/core/IconButton'
+import Collapse from '@material-ui/core/Collapse'
+import CloseIcon from '@material-ui/icons/Close'
 
 class Selection extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      listOptions: [
+      congressOptions: [
         'Representatives', 'Senators'
       ],
       statesOptions: ['AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY'],
-      selectedList: 'Representatives',
-      selectedState: 'AL'
+      selectedCongress: null,
+      selectedState: null,
+      open: false
     }
   }
 
-  listChange(selector) {
+  setOpen(value) {
     this.setState(state => ({
       ...state,
-      selectedList: selector.value
+      open: value
+    }))
+  }
+
+  congressChange(selector) {
+    this.setState(state => ({
+      ...state,
+      selectedCongress: selector.value
     }))
   }
 
@@ -35,10 +47,13 @@ class Selection extends React.Component {
   }
 
   submit() {
-    if (this.state.selectedList && this.state.selectedState) {
-      getList(this.state.selectedList, this.state.selectedState).then((resp) => {
+    if (this.state.selectedCongress && this.state.selectedState) {
+      this.setOpen(false)
+      getList(this.state.selectedCongress, this.state.selectedState).then((resp) => {
         this.props.onUpdate(resp.results)
       })
+    } else {
+      this.setOpen(true)
     }
   }
 
@@ -54,17 +69,15 @@ class Selection extends React.Component {
 
         <Grid item xs={2}>
           <Dropdown
-            options={this.state.listOptions}
-            onChange={this.listChange.bind(this)}
-            value={this.state.listOptions[0]}
-            placeholder="Select a list"
+            options={this.state.congressOptions}
+            onChange={this.congressChange.bind(this)}
+            placeholder="Select a congress house"
           />
         </Grid>
-        <Grid item xs={1}>
+        <Grid item xs={2}>
           <Dropdown
             options={this.state.statesOptions}
             onChange={this.stateChange.bind(this)}
-            value={this.state.statesOptions[0]}
             placeholder="Select a state"
           />
         </Grid>
@@ -73,6 +86,25 @@ class Selection extends React.Component {
             Submit
         </Button>
         </Grid>
+        <Collapse in={this.state.open}>
+          <Alert
+            severity="warning"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  this.setOpen(false)
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            Must select congress house and state!
+        </Alert>
+        </Collapse>
       </Grid>
     )
   }

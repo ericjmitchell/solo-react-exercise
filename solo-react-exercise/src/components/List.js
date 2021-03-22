@@ -14,21 +14,17 @@ class List extends React.Component {
     }
   }
 
-  setSelection(rows) {
-    console.log(rows)
-    this.props.onUpdate(rows[0])
-  }
-
-  shortenParty(party) {
-    return party[0]
+  setSelection(row) {
+    console.log(row.data)
+    this.props.onUpdate(row.data)
   }
 
   render() {
     return (
       <div style={{ height: 400, width: '100%' }}>
           <DataGrid scrollbarSize="0" rows={this.props.people} columns={this.state.columns} pageSize={5}
-            onSelectionChange={(newSelection) => {
-              this.setSelection(newSelection.rows)
+            onRowSelected={(newSelection) => {
+              this.setSelection(newSelection)
             }} />
       </div>
     )
