@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import Info from './components/Info'
+import Selection from './components/Selection'
+import List from './components/List'
+import Grid from '@material-ui/core/Grid'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Selection />
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
         >
-          Learn React
-        </a>
+          <List />
+          <Info />
+        </Grid>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
