@@ -3,7 +3,6 @@ import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import List from './List'
 import { updatePeople } from '../store/people/peopleSlice'
 import { getList } from '../services/people'
 import { connect } from "react-redux"
@@ -45,21 +44,36 @@ class Selection extends React.Component {
 
   render() {
     return (
-      <div height="100%">
-        <Grid
-          container
-          direction="row"
-          justify="flex-start"
-          alignItems="center"
-        >
-          <Dropdown options={this.state.listOptions} onChange={this.listChange.bind(this)} value={this.state.listOptions[0]} placeholder="Select a list" />
-          <Dropdown options={this.state.statesOptions} onChange={this.stateChange.bind(this)} value={this.state.statesOptions[0]} placeholder="Select a state" />
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        spacing={2}
+      >
+
+        <Grid item xs={2}>
+          <Dropdown
+            options={this.state.listOptions}
+            onChange={this.listChange.bind(this)}
+            value={this.state.listOptions[0]}
+            placeholder="Select a list"
+          />
+        </Grid>
+        <Grid item xs={1}>
+          <Dropdown
+            options={this.state.statesOptions}
+            onChange={this.stateChange.bind(this)}
+            value={this.state.statesOptions[0]}
+            placeholder="Select a state"
+          />
+        </Grid>
+        <Grid item xs={1}>
           <Button variant="contained" color="primary" onClick={() => this.submit()}>
             Submit
         </Button>
         </Grid>
-        <List />
-      </div>
+      </Grid>
     )
   }
 }

@@ -8,40 +8,40 @@ class Info extends React.Component {
   }
 
   firstName() {
-    if (this.state.person && this.state.person.name) {
-      return this.state.person.name.split(' ')[0]
+    if (this.props.person && this.props.person.name) {
+      return this.props.person.name.split(' ')[0]
     } else {
       return ""
     }
   }
 
   lastName() {
-    if (this.state.person && this.state.person.name) {
-      return this.state.person.name.split(' ')[1]
+    if (this.props.person && this.props.person.name) {
+      return this.props.person.name.split(' ')[1]
     } else {
       return ""
     }
   }
 
   district() {
-    if (this.state.person) {
-      return this.state.person.district
+    if (this.props.person) {
+      return this.props.person.district
     } else {
       return ""
     }
   }
 
   phone() {
-    if (this.state.person) {
-      return this.state.person.phone
+    if (this.props.person) {
+      return this.props.person.phone
     } else {
       return ""
     }
   }
 
   office() {
-    if (this.state.person) {
-      return this.state.person.office
+    if (this.props.person) {
+      return this.props.person.office
     } else {
       return ""
     }
@@ -62,8 +62,7 @@ class Info extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { person } = state
-  return { person }
+  return { person: state.person }
 }
 
 export default connect(mapStateToProps)(Info)

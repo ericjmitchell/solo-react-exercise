@@ -10,6 +10,7 @@ const peopleSlice = createSlice({
       if (action.payload) {
         const people = action.payload.map(person => {
           person.id = count++
+          person.shortParty = person.party[0]
           return person
         })
 

@@ -1,6 +1,5 @@
 import React from "react"
 import { DataGrid } from '@material-ui/data-grid'
-import Info from './Info'
 import { updatePerson } from '../store/people/personSlice'
 import { connect } from "react-redux"
 
@@ -9,13 +8,14 @@ class List extends React.Component {
     super(props)
     this.state = {
       columns: [
-        { field: 'name', headerName: 'Name', width: 160 },
-        { field: 'party', headerName: 'Party', width: 70 }
+        { field: 'name', headerName: 'Name', flex: 1 },
+        { field: 'shortParty', headerName: 'Party', width: 100 }
       ]
     }
   }
 
   setSelection(rows) {
+    console.log(rows)
     this.props.onUpdate(rows[0])
   }
 
@@ -25,12 +25,11 @@ class List extends React.Component {
 
   render() {
     return (
-      <div>
-        <DataGrid rows={this.props.people} columns={this.state.columns} pageSize={5}
-          onSelectionChange={(newSelection) => {
-            this.setSelection(newSelection.rows)
-          }} />
-        <Info />
+      <div style={{ height: 400, width: '100%' }}>
+          <DataGrid scrollbarSize="0" rows={this.props.people} columns={this.state.columns} pageSize={5}
+            onSelectionChange={(newSelection) => {
+              this.setSelection(newSelection.rows)
+            }} />
       </div>
     )
   }
