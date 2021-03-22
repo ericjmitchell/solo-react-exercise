@@ -126,3 +126,13 @@ _:state_ must be a valid state abbreviation (UT, WY, MO...etc)
 }
 ```
 
+## Running
+
+To run this, do the following:
+* cd into api/
+* Follow installation steps above
+* cd into solo-react-exercise/
+* npm install
+* npm start
+* open http://localhost:3000 in browser
+
