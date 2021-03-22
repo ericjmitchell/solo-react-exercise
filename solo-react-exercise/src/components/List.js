@@ -1,27 +1,22 @@
 import React from "react"
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
+import { DataGrid } from '@material-ui/data-grid'
+import Info from './Info'
+import { updatePerson } from '../store/people/personSlice'
+import { connect } from "react-redux"
 
 class List extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      people: [
-        {
-          name: 'Test 1',
-          party: 'Republican'
-        },
-        {
-          name: 'Test 2',
-          party: 'Democrat'
-        }
+      columns: [
+        { field: 'name', headerName: 'Name', width: 160 },
+        { field: 'party', headerName: 'Party', width: 70 }
       ]
     }
+  }
+
+  setSelection(rows) {
+    this.props.onUpdate(rows[0])
   }
 
   shortenParty(party) {
@@ -30,28 +25,25 @@ class List extends React.Component {
 
   render() {
     return (
-      <TableContainer component={Paper}>
-        <Table className="People" aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="left">Name</TableCell>
-              <TableCell align="left">Party</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {this.state.people.map((person) => (
-              <TableRow key={person.name}>
-                <TableCell component="th" scope="row">
-                  {person.name}
-                </TableCell>
-                <TableCell align="left">{this.shortenParty(person.party)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div>
+        <DataGrid rows={this.props.people} columns={this.state.columns} pageSize={5}
+          onSelectionChange={(newSelection) => {
+            this.setSelection(newSelection.rows)
+          }} />
+        <Info />
+      </div>
     )
   }
 }
 
-export default List
+const mapStateToProps = (state) => {
+  return { people: state.people }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onUpdate: (person) => dispatch(updatePerson(person))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)
