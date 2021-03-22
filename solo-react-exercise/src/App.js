@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <header >
-        <h1>Find Your Representatives!</h1>
+        <h1>Who's My Representative?</h1>
       </header>
         <Grid
           container

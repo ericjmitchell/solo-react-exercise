@@ -4,6 +4,7 @@ import 'react-dropdown/style.css'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import { updatePeople } from '../store/people/peopleSlice'
+import { updateCongress } from '../store/people/congressSlice'
 import { getList } from '../services/people'
 import { connect } from "react-redux"
 import Alert from '@material-ui/lab/Alert'
@@ -50,7 +51,8 @@ class Selection extends React.Component {
     if (this.state.selectedCongress && this.state.selectedState) {
       this.setOpen(false)
       getList(this.state.selectedCongress, this.state.selectedState).then((resp) => {
-        this.props.onUpdate(resp.results)
+        this.props.onUpdateCongress(this.state.selectedCongress)
+        this.props.onUpdatePeople(resp.results)
       })
     } else {
       this.setOpen(true)
@@ -112,7 +114,8 @@ class Selection extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onUpdate: (people) => dispatch(updatePeople(people))
+    onUpdatePeople: (people) => dispatch(updatePeople(people)),
+    onUpdateCongress: (congress) => dispatch(updateCongress(congress))
   }
 }
 

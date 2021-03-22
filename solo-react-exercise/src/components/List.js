@@ -22,7 +22,8 @@ class List extends React.Component {
   render() {
     return (
       <div style={{ height: 400, width: '100%' }}>
-          <DataGrid scrollbarSize="0" rows={this.props.people} columns={this.state.columns} pageSize={5}
+        <h1>List / {this.props.congress}</h1>
+          <DataGrid rows={this.props.people} columns={this.state.columns} pageSize={5}
             onRowSelected={(newSelection) => {
               this.setSelection(newSelection)
             }} />
@@ -32,7 +33,10 @@ class List extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { people: state.people }
+  return { 
+    people: state.people,
+    congress: state.congress
+   }
 }
 
 const mapDispatchToProps = (dispatch) => {
